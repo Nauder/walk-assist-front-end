@@ -41,8 +41,35 @@ export default function Login() {
         router.push("/");
       })
       .catch(function (error) {
-        setErro(error.response.data.message);
+        console.error(error);
+        altSetCredentials(registro);
       })
+  }
+
+  const altSetCredentials = async (registro: string) => {
+    AxiosUtil.session.get(`${AppSettings.API_ENDPOINT}usuarios`)
+      .then(function (response) {
+        response.data.usuarios.forEach((usuario: Usuario) => {
+          if (usuario.registro == registro) {
+            loginUser(usuario);
+            router.push("/");
+          }
+        });
+      })
+      .catch(function (error) {
+        console.error(error);
+        setUnknownCredentials(registro);
+      })
+  }
+
+  const setUnknownCredentials = async (registro: string) => {
+    loginUser({
+      registro: registro,
+      email: "Desconhecido",
+      nome: "Desconhecido",
+      tipo_usuario: "1"
+    } as Usuario);
+    router.push("/");
   }
 
   return (

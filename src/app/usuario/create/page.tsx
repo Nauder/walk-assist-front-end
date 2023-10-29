@@ -13,15 +13,18 @@ export default function CreateUsuario() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
+  const [sucesso, setSucesso] = useState('');
   const router = useRouter()
 
   const onSubmit = async () => {
     axios.post(`${AppSettings.API_ENDPOINT}usuarios`, {
       registro, nome, email, senha, "tipo_usuario": (tipoUsuario ? 1 : 0)
     }).then(function (response) {
-
+      setErro('');
+      setSucesso(`usuário ${nome} criado com sucesso`)
     })
       .catch(function (error) {
+        setSucesso('')
         setErro(error.response.data.message);
       })
   }
@@ -31,6 +34,7 @@ export default function CreateUsuario() {
       <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
         Criar Conta
       </h1>
+      <p className="text-green-500">{sucesso}</p>
       <p className="text-red-500">{erro}</p>
       <form className="space-y-4 md:space-y-6" action={onSubmit}>
         <div className="flex flex-wrap items-end">
