@@ -8,6 +8,7 @@ import {jwtDecode} from "jwt-decode";
 import {AuthContext} from "@/providers/AuthProvider";
 import {AxiosUtil} from "@/util/AxiosUtil";
 import axios from "axios";
+import { md5 } from 'js-md5';
 
 export default function Login() {
   const {loginUser} = useContext(AuthContext);
@@ -17,12 +18,15 @@ export default function Login() {
   const router = useRouter()
 
   const onSubmit = async () => {
-    axios.post(`${AppSettings.API_ENDPOINT}login`, {registro, senha})
+    axios.post(`${AppSettings.API_ENDPOINT}login`, {registro, "senha": md5(senha)})
       .then(function (response) {
-        // handle success
-        localStorage.setItem('token', `Bearer ${response.data.token}`);
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-        setCredentials(jwtDecode(response.data.token!).sub as string);
+        if(response.data.success) {
+          localStorage.setItem('token', `Bearer ${response.data.token}`);
+          axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+          setCredentials(jwtDecode(response.data.token!).sub as string);
+        } else {
+          setErro(response.data.message);
+        }
       })
       .catch(function (error) {
         setErro(error.response.data.message);
@@ -32,16 +36,22 @@ export default function Login() {
   const setCredentials = async (registro: string) => {
     AxiosUtil.session.get(`${AppSettings.API_ENDPOINT}usuarios/${registro}`)
       .then(function (response) {
-        loginUser({
-          registro: response.data.usuario.registro,
-          email: response.data.usuario.email,
-          nome: response.data.usuario.nome,
-          tipo_usuario: response.data.usuario.tipo_usuario
-        } as Usuario);
-        router.push("/");
+        console.log(response.data)
+        if(response.data.success) {
+          loginUser({
+            registro: response.data.usuario.registro,
+            email: response.data.usuario.email,
+            nome: response.data.usuario.nome,
+            tipo_usuario: response.data.usuario.tipo_usuario
+          } as Usuario);
+          router.push("/");
+        } else {
+          setErro(response.data.message);
+          altSetCredentials(registro);
+        }
       })
       .catch(function (error) {
-        console.error(error);
+        setErro(error.response.data.message);
         altSetCredentials(registro);
       })
   }
@@ -49,15 +59,20 @@ export default function Login() {
   const altSetCredentials = async (registro: string) => {
     AxiosUtil.session.get(`${AppSettings.API_ENDPOINT}usuarios`)
       .then(function (response) {
-        response.data.usuarios.forEach((usuario: Usuario) => {
-          if (usuario.registro == registro) {
-            loginUser(usuario);
-            router.push("/");
-          }
-        });
+        if(response.data.success) {
+          response.data.usuarios.forEach((usuario: Usuario) => {
+            if (usuario.registro == registro) {
+              loginUser(usuario);
+              router.push("/");
+            }
+          });
+        } else {
+          setErro(response.data.message);
+          setUnknownCredentials(registro);
+        }
       })
       .catch(function (error) {
-        console.error(error);
+        setErro(error.response.data.message);
         setUnknownCredentials(registro);
       })
   }

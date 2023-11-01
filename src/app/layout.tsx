@@ -4,7 +4,10 @@ import './globals.css'
 import Header from "@/components/Header";
 import AuthContextProvider from "@/providers/AuthProvider";
 
-const inter = Inter({subsets: ['latin']})
+const inter = Inter({
+    fallback: ["Helvetica", "Arial", "sans-serif"],
+    subsets: ['latin']
+});
 
 export const metadata: Metadata = {
   title: 'TCS',

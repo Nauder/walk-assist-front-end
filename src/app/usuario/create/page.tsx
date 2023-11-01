@@ -2,9 +2,9 @@
 
 import {useState} from 'react';
 import {AppSettings} from "@/config/config";
-import {useRouter} from 'next/navigation'
 import axios from "axios";
 import ContentCard from "@/components/ContentCard";
+import { md5 } from 'js-md5';
 
 export default function CreateUsuario() {
   const [registro, setRegistro] = useState(0);
@@ -14,11 +14,10 @@ export default function CreateUsuario() {
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
   const [sucesso, setSucesso] = useState('');
-  const router = useRouter()
 
   const onSubmit = async () => {
     axios.post(`${AppSettings.API_ENDPOINT}usuarios`, {
-      registro, nome, email, senha, "tipo_usuario": (tipoUsuario ? 1 : 0)
+      registro, nome, email, "senha": md5(senha), "tipo_usuario": (tipoUsuario ? 1 : 0)
     }).then(function (response) {
       setErro('');
       setSucesso(`usuário ${nome} criado com sucesso`)
