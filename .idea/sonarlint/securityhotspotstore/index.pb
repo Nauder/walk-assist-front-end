@@ -25,3 +25,16 @@ O
 src/app/usuario/create/page.tsx,7\7\770e1420be0d1437bdf2d186bfebb3d8a9a26494
 N
 src/providers/AuthProvider.tsx,9\8\983a9869c5c3e17cd81b23eb70fd4c053b2c71aa
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+>
+next.config.js,8\1\811a6d5a2e04fadb44d8eec365f2fa8af5c4facf
+w
+G.idea/sonarlint/issuestore/9/8/983a9869c5c3e17cd81b23eb70fd4c053b2c71aa,1\a\1abc9369708f7982e3fa35b083f1e98d6788e4b8
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
+w
+G.idea/sonarlint/issuestore/7/7/770e1420be0d1437bdf2d186bfebb3d8a9a26494,7\5\75da2571700e632e686382fe475fb8f3545c780d
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
