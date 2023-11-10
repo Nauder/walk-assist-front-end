@@ -41,13 +41,14 @@ const AuthContextProvider = (props: { children: React.ReactNode; }) => {
   };
 
   const logoutUser = () => {
-    AxiosUtil.session.post(`${AppSettings.API_ENDPOINT}logout`)
+    AxiosUtil.session.post(`${localStorage.getItem('servidor')}logout`)
       .then(function (response) {
         // handle success
         router.push('/login');
         setIsLoading(true);
         setUsuario(null); // Empty user data state
         localStorage.removeItem('token');
+        localStorage.removeItem('servidor');
       })
       .catch(function (error) {
         console.error(error.response.data.message);

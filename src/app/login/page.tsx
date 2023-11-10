@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import {useContext, useState} from 'react';
-import {AppSettings} from "@/config/config";
 import {useRouter} from 'next/navigation'
 import {jwtDecode} from "jwt-decode";
 import {AuthContext} from "@/providers/AuthProvider";
@@ -12,13 +11,17 @@ import {md5} from 'js-md5';
 
 export default function Login() {
   const {loginUser} = useContext(AuthContext);
+  const [endereco, setEndereco] = useState('');
+  const [porta, setPorta] = useState(0);
   const [registro, setRegistro] = useState(0);
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
   const router = useRouter()
 
   const onSubmit = async () => {
-    axios.post(`${AppSettings.API_ENDPOINT}login`, {registro, "senha": md5(senha)})
+    localStorage.setItem('servidor', `http://${endereco}:${porta}/`)
+    console.log(localStorage.getItem('servidor'))
+    axios.post(`${localStorage.getItem('servidor')}login`, {registro, "senha": md5(senha)})
       .then(function (response) {
         if (response.data.success) {
           localStorage.setItem('token', `Bearer ${response.data.token}`);
@@ -34,7 +37,7 @@ export default function Login() {
   }
 
   const setCredentials = async (data: { registro: string }) => {
-    AxiosUtil.session.get(`${AppSettings.API_ENDPOINT}usuarios/${data.registro}`)
+    AxiosUtil.session.get(`${localStorage.getItem('servidor')}usuarios/${data.registro}`)
       .then(function (response) {
         console.log(response.data)
         if (response.data.success || response.data.usuario) {
@@ -57,7 +60,7 @@ export default function Login() {
   }
 
   const altSetCredentials = async (registro: string) => {
-    AxiosUtil.session.get(`${AppSettings.API_ENDPOINT}usuarios`)
+    AxiosUtil.session.get(`${localStorage.getItem('servidor')}usuarios`)
       .then(function (response) {
         if (response.data.success || response.data.usuarios?.length > 0) {
           response.data.usuarios.forEach((usuario: Usuario) => {
@@ -107,6 +110,20 @@ export default function Login() {
           </h1>
           <p className="text-red-500">{erro}</p>
           <form className="space-y-4 md:space-y-6" action={onSubmit}>
+            <div>
+              <label htmlFor="endereco"
+                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Endereço do Servidor</label>
+              <input type="text" name="endereco" id="endereco"
+                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     placeholder="10.20.8.127" required={true} onChange={e => setEndereco(e.target.value)}/>
+            </div>
+            <div>
+              <label htmlFor="porta"
+                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Porta do Servidor</label>
+              <input type="number" name="porta" id="porta"
+                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     placeholder="25000" required={true} onChange={e => setPorta(+e.target.value)}/>
+            </div>
             <div>
               <label htmlFor="registro"
                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Registro</label>

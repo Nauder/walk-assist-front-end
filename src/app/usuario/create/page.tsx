@@ -16,7 +16,7 @@ export default function CreateUsuario() {
   const [sucesso, setSucesso] = useState('');
 
   const onSubmit = async () => {
-    axios.post(`${AppSettings.API_ENDPOINT}usuarios`, {
+    axios.post(`${localStorage.getItem('servidor')}usuarios`, {
       registro, nome, email, "senha": md5(senha), "tipo_usuario": (tipoUsuario ? 1 : 0)
     }).then(function (response) {
       setErro('');

@@ -8,10 +8,26 @@ export default function Header() {
   const {usuario, logoutUser, isLoading} = useContext(AuthContext);
 
   return (usuario === null || isLoading) ? ('') : (
-    <header className="flex items-center justify-between p-6 bg-gray-800 border-b mb-4">
-      <Link href="/">
+    <header className="flex items-center justify-between p-4 bg-gray-800 border-b mb-4">
+      <Link href="/" className="text-gray-50 hover:text-gray-400">
         Home
       </Link>
+
+        {+usuario.tipo_usuario === 1 ?
+      <nav>
+        <ul className="flex items-center space-x-4">
+          <Link href="/usuario/read" className="text-gray-50 hover:text-gray-400">
+            Usuarios
+          </Link>
+          <Link href="/usuario/read" className="text-gray-50 hover:text-gray-400">
+            Segmentos
+          </Link>
+          <Link href="/usuario/read" className="text-gray-50 hover:text-gray-400">
+            Pontos
+          </Link>
+        </ul>
+      </nav>
+        : ''}
 
       <nav>
         <ul className="flex items-center space-x-4">
