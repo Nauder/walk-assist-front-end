@@ -64,3 +64,5 @@ S
 #src/app/usuario/[registro]/page.tsx,8\c\8cad2fc0b906347c9ccc75ccabc8e78db7375836
 W
 'src/components/buttons/PencilButton.tsx,4\b\4bd4f2a982db5e41ed5ecd330006dff5a502690e
+P
+ src/app/usuario/pessoal/page.tsx,7\1\7139245b8c75ef14a398a7e4f22f16abfbbacad2

@@ -2,7 +2,6 @@
 
 import React, {createContext, useContext, useEffect, useReducer, useState} from 'react';
 import {redirect, usePathname, useRouter} from "next/navigation";
-import {AxiosUtil} from "@/util/AxiosUtil";
 import axios from "axios";
 import {MessageContext} from "@/providers/MessageProvider";
 
@@ -14,7 +13,7 @@ export const AuthContext = createContext({} as {
 });
 
 const AuthProvider = (props: { children: React.ReactNode; }) => {
-  const {setErro} = useContext(MessageContext);
+  const {setSucesso, setErro} = useContext(MessageContext);
   const [isLoading, setIsLoading] = useState(true);
   const [url] = useState(usePathname());
   const [usuario, setUsuario] = useReducer((prev: any, cur: any) => {
@@ -42,7 +41,7 @@ const AuthProvider = (props: { children: React.ReactNode; }) => {
   };
 
   const logoutUser = () => {
-    AxiosUtil.session.post(`${localStorage.getItem('servidor')}logout`)
+    axios.post(`${localStorage.getItem('servidor')}logout`)
       .then(function (response) {
       })
       .catch(function (error) {
@@ -51,7 +50,9 @@ const AuthProvider = (props: { children: React.ReactNode; }) => {
       })
     router.push('/login');
     setIsLoading(true);
-    setUsuario(null); // Empty user data state
+    setUsuario(null);
+    setSucesso('');
+    setErro('');
     localStorage.removeItem('token');
     localStorage.removeItem('servidor');
   };

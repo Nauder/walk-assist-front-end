@@ -33,6 +33,11 @@ export default function Header() {
         <ul className="flex items-center space-x-4">
           <li>
             <button
+              className="rounded bg-gray-900 hover:bg-gray-800 p-1.5 border"><a href="/usuario/pessoal">Pessoal</a>
+            </button>
+          </li>
+          <li>
+            <button
               onClick={logoutUser}
               className="rounded bg-gray-900 hover:bg-gray-800 p-1.5 border">Logout
             </button>

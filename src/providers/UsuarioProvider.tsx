@@ -28,10 +28,10 @@ const UsuarioProvider = (props: { children: React.ReactNode; }) => {
   }
 
   useEffect(() => {
-    if (usuario !== null && usuario.tipo_usuario === 1) {
+    if (usuario !== null && usuario.tipo_usuario === 1 && axios.defaults.headers.common['Authorization']) {
       getData();
     }
-  }, [usuario]);
+  }, [usuario, axios.defaults.headers.common['Authorization']]);
 
   return (
     <UsuarioContext.Provider value={{usuarios: usuarios, refreshUsuarios: getData, isLoading: isLoading}}>

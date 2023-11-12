@@ -5,7 +5,6 @@ import {useContext, useState} from 'react';
 import {useRouter} from 'next/navigation'
 import {jwtDecode} from "jwt-decode";
 import {AuthContext} from "@/providers/AuthProvider";
-import {AxiosUtil} from "@/util/AxiosUtil";
 import axios from "axios";
 import {md5} from 'js-md5';
 import ContexMessages from "@/components/ContexMessages";
@@ -22,7 +21,6 @@ export default function Login() {
 
   const onSubmit = async () => {
     localStorage.setItem('servidor', `http://${endereco}:${porta}/`)
-    console.log(localStorage.getItem('servidor'))
     axios.post(`${localStorage.getItem('servidor')}login`, {registro, "senha": md5(senha)})
       .then(function (response) {
         if (response.data.success) {
@@ -39,7 +37,7 @@ export default function Login() {
   }
 
   const setCredentials = async (data: { registro: string }) => {
-    AxiosUtil.session.get(`${localStorage.getItem('servidor')}usuarios/${data.registro}`)
+    axios.get(`${localStorage.getItem('servidor')}usuarios/${data.registro}`)
       .then(function (response) {
         console.log(response.data)
         if (response.data.success || response.data.usuario) {
@@ -62,7 +60,7 @@ export default function Login() {
   }
 
   const altSetCredentials = async (registro: string) => {
-    AxiosUtil.session.get(`${localStorage.getItem('servidor')}usuarios`)
+    axios.get(`${localStorage.getItem('servidor')}usuarios`)
       .then(function (response) {
         if (response.data.success || response.data.usuarios?.length > 0) {
           response.data.usuarios.forEach((usuario: Usuario) => {
