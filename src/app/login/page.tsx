@@ -8,14 +8,16 @@ import {AuthContext} from "@/providers/AuthProvider";
 import {AxiosUtil} from "@/util/AxiosUtil";
 import axios from "axios";
 import {md5} from 'js-md5';
+import ContexMessages from "@/components/ContexMessages";
+import {MessageContext} from "@/providers/MessageProvider";
 
 export default function Login() {
   const {loginUser} = useContext(AuthContext);
+  const {setErro} = useContext(MessageContext);
   const [endereco, setEndereco] = useState('');
   const [porta, setPorta] = useState(0);
   const [registro, setRegistro] = useState(0);
   const [senha, setSenha] = useState('');
-  const [erro, setErro] = useState('');
   const router = useRouter()
 
   const onSubmit = async () => {
@@ -93,7 +95,7 @@ export default function Login() {
       registro: registro,
       email: "Desconhecido",
       nome: "Desconhecido",
-      tipo_usuario: "1"
+      tipo_usuario: 1
     } as Usuario);
     router.push("/");
   }
@@ -108,18 +110,20 @@ export default function Login() {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Entrar com a sua conta
           </h1>
-          <p className="text-red-500">{erro}</p>
+          <ContexMessages/>
           <form className="space-y-4 md:space-y-6" action={onSubmit}>
             <div>
               <label htmlFor="endereco"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Endereço do Servidor</label>
+                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Endereço do
+                Servidor</label>
               <input type="text" name="endereco" id="endereco"
                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      placeholder="10.20.8.127" required={true} onChange={e => setEndereco(e.target.value)}/>
             </div>
             <div>
               <label htmlFor="porta"
-                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Porta do Servidor</label>
+                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Porta do
+                Servidor</label>
               <input type="number" name="porta" id="porta"
                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      placeholder="25000" required={true} onChange={e => setPorta(+e.target.value)}/>

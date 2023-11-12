@@ -1,10 +1,10 @@
 "use client";
 
-import React, {createContext, useEffect, useReducer, useState} from 'react';
+import React, {createContext, useContext, useEffect, useReducer, useState} from 'react';
 import {redirect, usePathname, useRouter} from "next/navigation";
-import {AppSettings} from "@/config/config";
 import {AxiosUtil} from "@/util/AxiosUtil";
 import axios from "axios";
+import {MessageContext} from "@/providers/MessageProvider";
 
 export const AuthContext = createContext({} as {
   usuario: Usuario;
@@ -13,7 +13,8 @@ export const AuthContext = createContext({} as {
   isLoading: boolean;
 });
 
-const AuthContextProvider = (props: { children: React.ReactNode; }) => {
+const AuthProvider = (props: { children: React.ReactNode; }) => {
+  const {setErro} = useContext(MessageContext);
   const [isLoading, setIsLoading] = useState(true);
   const [url] = useState(usePathname());
   const [usuario, setUsuario] = useReducer((prev: any, cur: any) => {
@@ -43,16 +44,16 @@ const AuthContextProvider = (props: { children: React.ReactNode; }) => {
   const logoutUser = () => {
     AxiosUtil.session.post(`${localStorage.getItem('servidor')}logout`)
       .then(function (response) {
-        // handle success
-        router.push('/login');
-        setIsLoading(true);
-        setUsuario(null); // Empty user data state
-        localStorage.removeItem('token');
-        localStorage.removeItem('servidor');
       })
       .catch(function (error) {
         console.error(error.response.data.message);
+        setErro(error.response.data.message);
       })
+    router.push('/login');
+    setIsLoading(true);
+    setUsuario(null); // Empty user data state
+    localStorage.removeItem('token');
+    localStorage.removeItem('servidor');
   };
 
   useEffect(() => {
@@ -71,7 +72,7 @@ const AuthContextProvider = (props: { children: React.ReactNode; }) => {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     setIsLoading(false)
-  }, [url])
+  }, [])
 
 
   return (
@@ -81,4 +82,4 @@ const AuthContextProvider = (props: { children: React.ReactNode; }) => {
   )
 }
 
-export default AuthContextProvider;
+export default AuthProvider;

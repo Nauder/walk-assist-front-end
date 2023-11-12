@@ -13,20 +13,20 @@ export default function Header() {
         Home
       </Link>
 
-        {+usuario.tipo_usuario === 1 ?
-      <nav>
-        <ul className="flex items-center space-x-4">
-          <Link href="/usuario/read" className="text-gray-50 hover:text-gray-400">
-            Usuarios
-          </Link>
-          <Link href="/usuario/read" className="text-gray-50 hover:text-gray-400">
-            Segmentos
-          </Link>
-          <Link href="/usuario/read" className="text-gray-50 hover:text-gray-400">
-            Pontos
-          </Link>
-        </ul>
-      </nav>
+      {+usuario.tipo_usuario === 1 ?
+        <nav>
+          <ul className="flex items-center space-x-4">
+            <Link href="/usuario" className="text-gray-50 hover:text-gray-400">
+              Usuarios
+            </Link>
+            <Link href="/usuario" className="text-gray-50 hover:text-gray-400">
+              Segmentos
+            </Link>
+            <Link href="/usuario" className="text-gray-50 hover:text-gray-400">
+              Pontos
+            </Link>
+          </ul>
+        </nav>
         : ''}
 
       <nav>
