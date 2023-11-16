@@ -6,6 +6,7 @@ import AuthProvider from "@/providers/AuthProvider";
 import Footer from "@/components/Footer";
 import UsuarioProvider from "@/providers/UsuarioProvider";
 import MessageProvider from "@/providers/MessageProvider";
+import PontoProvider from "@/providers/PontoProvider";
 
 const inter = Inter({
   fallback: ["Helvetica", "Arial", "sans-serif"],
@@ -22,17 +23,19 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
     <AuthProvider>
       <MessageProvider>
         <UsuarioProvider>
-          <html lang="en">
-          <body className={inter.className}>
-          <main className="bg-gray-900 mx-auto flex flex-col min-h-screen h-max">
-            <Header/>
-            <div className="flex flex-col grow items-center align-middle px-6 py-8 lg:py-0">
-              {children}
-            </div>
-            <Footer/>
-          </main>
-          </body>
-          </html>
+          <PontoProvider>
+            <html lang="en">
+            <body className={inter.className}>
+            <main className="bg-gray-900 mx-auto flex flex-col min-h-screen h-max">
+              <Header/>
+              <div className="flex flex-col grow items-center align-middle px-6 py-8 lg:py-0">
+                {children}
+              </div>
+              <Footer/>
+            </main>
+            </body>
+            </html>
+          </PontoProvider>
         </UsuarioProvider>
       </MessageProvider>
     </AuthProvider>

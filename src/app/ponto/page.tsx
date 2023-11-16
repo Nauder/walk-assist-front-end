@@ -4,19 +4,19 @@ import ContentCard from "@/components/ContentCard";
 import UsuarioTable from "@/components/tables/UsuarioTable";
 import ContexMessages from "@/components/ContexMessages";
 
-export default function GetUsuario() {
+export default function GetPonto() {
   return (
     <ContentCard>
       <h1
         className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
-        Usuarios
+        Pontos
       </h1>
       <a
-        href="/usuario/create"
-        className="rounded bg-gray-900 hover:bg-gray-800 p-1.5 border">Criar Usuário
+        href="/ponto/create"
+        className="rounded bg-gray-900 hover:bg-gray-800 p-1.5 border">Criar
       </a>
       <ContexMessages/>
-      <div className="flex justify-center"><UsuarioTable/></div>
+      <div className="flex justify-center"><PontoTable/></div>
     </ContentCard>
   )
 }
