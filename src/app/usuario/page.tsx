@@ -13,7 +13,7 @@ export default function GetUsuario() {
       </h1>
       <a
         href="/usuario/create"
-        className="rounded bg-gray-900 hover:bg-gray-800 p-1.5 border">Criar Usuário
+        className="rounded bg-gray-900 hover:bg-gray-800 p-1.5 border">Criar
       </a>
       <ContexMessages/>
       <div className="flex justify-center"><UsuarioTable/></div>

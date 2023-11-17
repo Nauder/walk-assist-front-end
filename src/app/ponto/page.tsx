@@ -1,8 +1,8 @@
 "use client";
 
 import ContentCard from "@/components/ContentCard";
-import UsuarioTable from "@/components/tables/UsuarioTable";
 import ContexMessages from "@/components/ContexMessages";
+import PontoTable from "@/components/tables/PontoTable";
 
 export default function GetPonto() {
   return (

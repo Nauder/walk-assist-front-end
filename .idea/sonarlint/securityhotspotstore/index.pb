@@ -66,3 +66,13 @@ W
 'src/components/buttons/PencilButton.tsx,4\b\4bd4f2a982db5e41ed5ecd330006dff5a502690e
 P
  src/app/usuario/pessoal/page.tsx,7\1\7139245b8c75ef14a398a7e4f22f16abfbbacad2
+B
+tailwind.config.ts,5\2\52c961376029165b06e7861b1dc68c3b2455eeff
+T
+$src/components/tables/PontoTable.tsx,3\5\35c8968b043b851731ed3e7c00d2080c989aa7f0
+F
+src/app/ponto/page.tsx,5\9\59aa74db5a1459d9175d24dcbfd8fe24dc5e5085
+M
+src/app/ponto/create/page.tsx,2\3\236c1c3f6cb68bf021292d86673ca43c2426cfa2
+K
+src/app/ponto/[id]/page.tsx,4\c\4c4c364569a2f1b8fc179e30ac703dddbc80d55f

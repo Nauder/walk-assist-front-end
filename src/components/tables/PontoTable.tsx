@@ -1,20 +1,18 @@
 import React, {useContext} from "react";
 import TrashButton from "@/components/buttons/TrashButton";
 import axios from "axios";
-import {UsuarioContext} from "@/providers/UsuarioProvider";
 import {MessageContext} from "@/providers/MessageProvider";
 import PencilButton from "@/components/buttons/PencilButton";
-import {redirect} from "next/navigation";
 import {PontoContext} from "@/providers/PontoProvider";
 
-export default function UsuarioTable() {
+export default function PontoTable() {
   const {pontos, refreshPontos, isLoading} = useContext(PontoContext);
   const {setSucesso, setErro} = useContext(MessageContext);
 
-  const deletePonto = async (id_ponto: number) => {
-    axios.delete(`${localStorage.getItem('servidor')}pontos/${id_ponto}`)
+  const deletePonto = async (ponto_id: number) => {
+    axios.delete(`${localStorage.getItem('servidor')}pontos/${ponto_id}`)
       .then(function (response) {
-        setSucesso(`Ponto ${id_ponto} removido com sucesso`);
+        setSucesso(`Ponto ${ponto_id} removido com sucesso`);
         setErro('');
         refreshPontos();
       })
@@ -41,9 +39,9 @@ export default function UsuarioTable() {
                 <td className="whitespace-nowrap px-6 py-2 font-medium">{ponto.ponto_id}</td>
                 <td className="whitespace-nowrap px-6 py-2">{ponto.nome}</td>
                 <td className="whitespace-nowrap px-3 py-2"><PencilButton
-                  href={`/usuario/${ponto.ponto_id}`}/></td>
+                  href={`/ponto/${ponto.ponto_id}`}/></td>
                 <td className="whitespace-nowrap px-3 py-2"><TrashButton
-                  onClick={() => deletePonto(ponto.ponto_id)}/></td>
+                  onClick={() => deletePonto(+ponto.ponto_id)}/></td>
               </tr>
             );
           })}
