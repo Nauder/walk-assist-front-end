@@ -46,13 +46,10 @@ const AuthProvider = (props: { children: React.ReactNode; }) => {
       })
       .catch(function (error) {
         console.error(error.response.data.message);
-        setErro(error.response.data.message);
       })
     router.push('/login');
     setIsLoading(true);
     setUsuario(null);
-    setSucesso('');
-    setErro('');
     localStorage.removeItem('token');
     localStorage.removeItem('servidor');
   };
