@@ -1,9 +1,8 @@
 "use client";
 
-import React, {createContext, useContext, useEffect, useReducer, useState} from 'react';
+import React, {createContext, useCallback, useEffect, useMemo, useReducer, useState} from 'react';
 import {redirect, usePathname, useRouter} from "next/navigation";
 import axios from "axios";
-import {MessageContext} from "@/providers/MessageProvider";
 
 export const AuthContext = createContext({} as {
   usuario: Usuario;
@@ -13,7 +12,6 @@ export const AuthContext = createContext({} as {
 });
 
 const AuthProvider = (props: { children: React.ReactNode; }) => {
-  const {setSucesso, setErro} = useContext(MessageContext);
   const [isLoading, setIsLoading] = useState(true);
   const [url] = useState(usePathname());
   const [usuario, setUsuario] = useReducer((prev: any, cur: any) => {
@@ -40,7 +38,7 @@ const AuthProvider = (props: { children: React.ReactNode; }) => {
     setIsLoading(false);
   };
 
-  const logoutUser = () => {
+  const logoutUser = useCallback(() => {
     axios.post(`${localStorage.getItem('servidor')}logout`)
       .then(function (response) {
       })
@@ -52,7 +50,7 @@ const AuthProvider = (props: { children: React.ReactNode; }) => {
     setUsuario(null);
     localStorage.removeItem('token');
     localStorage.removeItem('servidor');
-  };
+  }, [router])
 
   useEffect(() => {
     setIsLoading(true);
@@ -70,11 +68,15 @@ const AuthProvider = (props: { children: React.ReactNode; }) => {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     setIsLoading(false)
-  }, [])
+  }, [url])
 
+  const value = useMemo(() => (
+      {usuario, loginUser, logoutUser, isLoading}),
+    [isLoading, logoutUser, usuario]
+  );
 
   return (
-    <AuthContext.Provider value={{usuario, loginUser, logoutUser, isLoading}}>
+    <AuthContext.Provider value={value}>
       {props.children}
     </AuthContext.Provider>
   )

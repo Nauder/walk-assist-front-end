@@ -9,12 +9,8 @@ B
 src/app/page.tsx,3\3\3393394e21dbac7686e91ad17c5283fb052d67f3
 K
 src/components/UserHome.tsx,e\1\e1ac7db483bdc756ef4654c8a16cc664d54cc60c
-E
-src/util/AxiosUtil.ts,a\3\a312ceac636c58e617541ed52082cbc6abace579
 D
 src/types/Usuario.ts,d\9\d9d749eafa263ce750458a00a11552f46fddf92b
-D
-src/config/config.ts,6\7\67497055fe55741a708bf9cb7932a949f241dc8e
 I
 src/components/Header.tsx,a\e\aeb164160f025a7bc1eca5644891a8294266ea1a
 N
@@ -38,12 +34,6 @@ w
 G.idea/sonarlint/issuestore/7/7/770e1420be0d1437bdf2d186bfebb3d8a9a26494,7\5\75da2571700e632e686382fe475fb8f3545c780d
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
-M
-src/app/usuario/read/page.tsx,e\d\ed29cd539272264465fd6c72b6a31dd0e81f7242
-O
-src/components/UsuarioTable.tsx,6\3\63340cb71d902eee0612313eedc04d00c81d1a08
-T
-$src/components/icons/TrashButton.tsx,9\e\9ea7a54ed99b0b4d2ad1ce2948a2b29ad740f824
 V
 &src/components/buttons/TrashButton.tsx,3\5\357fcaffa933fffd98eda73c220b994081f40070
 I
@@ -58,8 +48,6 @@ V
 &src/components/tables/UsuarioTable.tsx,7\a\7a6c7c7e5b970a94007d08cd4ad2d7edc889ce6a
 H
 src/app/usuario/page.tsx,1\f\1f296667aa4747543077976fbab2832fee98499c
-N
-src/app/usuario/[registro].tsx,2\5\2599e3a2d72625a56bcd26ef44ef70574c4c45c5
 S
 #src/app/usuario/[registro]/page.tsx,8\c\8cad2fc0b906347c9ccc75ccabc8e78db7375836
 W
@@ -76,3 +64,17 @@ M
 src/app/ponto/create/page.tsx,2\3\236c1c3f6cb68bf021292d86673ca43c2426cfa2
 K
 src/app/ponto/[id]/page.tsx,4\c\4c4c364569a2f1b8fc179e30ac703dddbc80d55f
+R
+"src/providers/SegmentoProvider.tsx,6\2\621b98bc7ab9a5a0cfa89bceb8ac70864c99e46d
+E
+src/types/Segmento.ts,c\3\c346c5962cfdfd6f950857673f6ee6e2e3b0f4c1
+W
+'src/components/tables/SegmentoTable.tsx,a\d\ad6c1ae452fe1d849d5b28809409be386e6048c8
+I
+src/app/segmento/page.tsx,8\a\8a8d93d20b35630963f4b1f54bf43eaf698aabdc
+P
+ src/app/segmento/create/page.tsx,8\7\87ce481edddd62e8d494ca08aa1896ad2419822d
+N
+src/app/segmento/[id]/page.tsx,9\1\915e7734fa7e078729776b1b74e38d528ac79857
+O
+src/providers/PontoProvider.tsx,e\3\e3a100f707dd8b22d53e66c2a40e737767dd23df

@@ -3,20 +3,20 @@ import TrashButton from "@/components/buttons/TrashButton";
 import axios from "axios";
 import {MessageContext} from "@/providers/MessageProvider";
 import PencilButton from "@/components/buttons/PencilButton";
-import {PontoContext} from "@/providers/PontoProvider";
+import {SegmentoContext} from "@/providers/SegmentoProvider";
 import {AuthContext} from "@/providers/AuthProvider";
 
-export default function PontoTable() {
+export default function SegmentoTable() {
   const {usuario} = useContext(AuthContext);
-  const {pontos, refreshPontos, isLoading} = useContext(PontoContext);
+  const {segmentos, refreshSegmentos, isLoading} = useContext(SegmentoContext);
   const {setSucesso, setErro} = useContext(MessageContext);
 
-  const deletePonto = async (ponto_id: number) => {
-    axios.delete(`${localStorage.getItem('servidor')}pontos/${ponto_id}`)
+  const deleteSegmento = async (id: number) => {
+    axios.delete(`${localStorage.getItem('servidor')}segmentos/${id}`)
       .then(function (response) {
-        setSucesso(`Ponto ${ponto_id} removido com sucesso`);
+        setSucesso(response.data.message);
         setErro('');
-        refreshPontos();
+        refreshSegmentos();
       })
       .catch(function (error) {
         setSucesso('');
@@ -30,23 +30,31 @@ export default function PontoTable() {
         <table className="min-w-full text-left text-sm font-light">
           <thead className="border-b font-medium dark:border-neutral-500">
           <tr>
-            <th className="px-6 py-4">ID</th>
-            <th className="px-6 py-4">Nome</th>
+            <th className="px-6 py-4">#</th>
+            <th className="px-6 py-4">Inicio</th>
+            <th className="px-6 py-4">Fim</th>
+            <th className="px-6 py-4">Status</th>
+            <th className="px-6 py-4">Distancia</th>
+            <th className="px-6 py-4">Direção</th>
           </tr>
           </thead>
           <tbody className="border-b dark:border-neutral-500">
-          {pontos.map(ponto => {
+          {segmentos.map(segmento => {
             return (
-              <tr key={ponto.ponto_id}>
-                <td className="whitespace-nowrap px-6 py-2 font-medium">{ponto.ponto_id}</td>
-                <td className="whitespace-nowrap px-6 py-2">{ponto.nome}</td>
+              <tr key={segmento.segmento_id}>
+                <td className="whitespace-nowrap px-6 py-2 font-medium">{segmento.segmento_id}</td>
+                <td className="whitespace-nowrap px-6 py-2">{segmento.ponto_inicial}</td>
+                <td className="whitespace-nowrap px-6 py-2">{segmento.ponto_final}</td>
+                <td className="whitespace-nowrap px-6 py-2">{segmento.status === 1 ? 'Livre' : 'Interditado'}</td>
+                <td className="whitespace-nowrap px-6 py-2">{segmento.distancia}</td>
+                <td className="whitespace-nowrap px-6 py-2">{segmento.direcao}</td>
                 {usuario.tipo_usuario === 1 ?
                   <td className="whitespace-nowrap px-3 py-2"><PencilButton
-                    href={`/ponto/${ponto.ponto_id}`}/></td> : ''
+                    href={`/segmento/${segmento.segmento_id}`}/></td> : ''
                 }
                 {usuario.tipo_usuario === 1 ?
                   <td className="whitespace-nowrap px-3 py-2"><TrashButton
-                    onClick={() => deletePonto(+ponto.ponto_id)}/></td> : ''
+                    onClick={() => deleteSegmento(segmento.segmento_id)}/></td> : ''
                 }
               </tr>
             );

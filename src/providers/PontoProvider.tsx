@@ -1,6 +1,6 @@
 "use client";
 
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "@/providers/AuthProvider";
 
@@ -15,7 +15,7 @@ const PontoProvider = (props: { children: React.ReactNode; }) => {
   const [pontos, setPontos] = useState([] as Ponto[])
   const [isLoading, setIsLoading] = useState(true)
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     setIsLoading(true)
     axios.get(`${localStorage.getItem('servidor')}pontos`)
       .then(function (response) {
@@ -25,16 +25,22 @@ const PontoProvider = (props: { children: React.ReactNode; }) => {
         console.error(error);
       })
     setIsLoading(false)
-  }
+  }, [])
 
   useEffect(() => {
-    if (usuario !== null && usuario.tipo_usuario === 1 && axios.defaults.headers.common['Authorization']) {
+    if (usuario !== null && axios.defaults.headers.common['Authorization']) {
       getData();
     }
-  }, [usuario, axios.defaults.headers.common['Authorization']]);
+  }, [usuario, getData]);
+
+  const value = useMemo(() => ({
+    pontos: pontos,
+    refreshPontos: getData,
+    isLoading: isLoading
+  }), [getData, isLoading, pontos]);
 
   return (
-    <PontoContext.Provider value={{pontos: pontos, refreshPontos: getData, isLoading: isLoading}}>
+    <PontoContext.Provider value={value}>
       {props.children}
     </PontoContext.Provider>
   );

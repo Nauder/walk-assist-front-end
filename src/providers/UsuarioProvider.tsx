@@ -1,6 +1,6 @@
 "use client";
 
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "@/providers/AuthProvider";
 
@@ -31,10 +31,16 @@ const UsuarioProvider = (props: { children: React.ReactNode; }) => {
     if (usuario !== null && usuario.tipo_usuario === 1 && axios.defaults.headers.common['Authorization']) {
       getData();
     }
-  }, [usuario, axios.defaults.headers.common['Authorization']]);
+  }, [usuario]);
+
+  const value = useMemo(() => ({
+    usuarios: usuarios,
+    refreshUsuarios: getData,
+    isLoading: isLoading
+  }), [isLoading, usuarios]);
 
   return (
-    <UsuarioContext.Provider value={{usuarios: usuarios, refreshUsuarios: getData, isLoading: isLoading}}>
+    <UsuarioContext.Provider value={value}>
       {props.children}
     </UsuarioContext.Provider>
   );
