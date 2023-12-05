@@ -78,3 +78,9 @@ N
 src/app/segmento/[id]/page.tsx,9\1\915e7734fa7e078729776b1b74e38d528ac79857
 O
 src/providers/PontoProvider.tsx,e\3\e3a100f707dd8b22d53e66c2a40e737767dd23df
+G
+src/components/Rota.tsx,6\9\696bfbb316aff5bbcfaa99b457f7b8650d3a7243
+L
+src/components/RotaSearch.ts,2\c\2cbfc889101e5ea9c6e88ee271aace7ddec9753e
+M
+src/components/RotaSearch.tsx,e\6\e65bf7897e315c252e7df7153085580f5c9d026a
