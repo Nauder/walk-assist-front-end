@@ -21,16 +21,15 @@ export default function Rota(props: Readonly<{ rota: Segmento[] }>) {
               <tr key={segmento.segmento_id}>
                 <td className="whitespace-nowrap px-6 py-2 font-medium">{index + 1}</td>
                 <td className="whitespace-nowrap px-6 py-2">{segmento.ponto_inicial}</td>
-                <td
-                  className={"whitespace-nowrap px-6 py-2" + (index + 1 == props.rota.length ? " text-yellow-300" : "")}>{segmento.ponto_final}</td>
+                <td className="whitespace-nowrap px-6 py-2">{segmento.ponto_final}</td>
                 <td className="whitespace-nowrap px-6 py-2">{segmento.distancia}</td>
-                <td className="whitespace-nowrap px-6 py-2">{segmento.direcao}</td>
+                <td
+                  className="whitespace-nowrap px-6 py-2">{segmento.direcao + (index + 1 == props.rota.length ? " -> Destino" : "")}</td>
               </tr>
             );
           })}
           </tbody>
         </table>
-        <p className="text-yellow-300">⛋ Destino</p>
       </div>
     </div>
   )

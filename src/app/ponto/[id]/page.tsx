@@ -8,6 +8,7 @@ import ContexMessages from "@/components/ContexMessages";
 import {MessageContext} from "@/providers/MessageProvider";
 import {UsuarioContext} from "@/providers/UsuarioProvider";
 import {PontoContext} from "@/providers/PontoProvider";
+import Image from "next/image";
 
 export default function UpdatePonto({params}: Readonly<{ params: { id: string } }>) {
   const {setSucesso, setErro} = useContext(MessageContext);
@@ -58,7 +59,9 @@ export default function UpdatePonto({params}: Readonly<{ params: { id: string } 
         Criar Ponto
       </h1>
       <ContexMessages/>
-      {isLoading ? <p>Carregando...</p> :
+      {isLoading ?
+        <div className="flex flex-wrap items-center justify-center"><Image src="/loading.gif" alt="Loading" width={200}
+                                                                           height={200}/></div> :
         <form className="space-y-4 md:space-y-6" action={onSubmit}>
           <div className="flex flex-wrap items-end">
             <div className="m-4 w-1/3">

@@ -7,6 +7,7 @@ import axios from "axios";
 import {md5} from "js-md5";
 import ContentCard from "@/components/ContentCard";
 import ContexMessages from "@/components/ContexMessages";
+import Image from "next/image";
 
 export default function UpdateUsuario({params}: { params: { registro: string } }) {
   const {setSucesso, setErro} = useContext(MessageContext);
@@ -62,7 +63,9 @@ export default function UpdateUsuario({params}: { params: { registro: string } }
         Editar Usuario {params.registro}
       </h1>
       <ContexMessages/>
-      {isLoading ? <p>Carregando...</p> :
+      {isLoading ?
+        <div className="flex flex-wrap items-center justify-center"><Image src="/loading.gif" alt="Loading" width={200}
+                                                                           height={200}/></div> :
         <form className="space-y-4 md:space-y-6" action={onSubmit}>
           <div className="flex flex-wrap items-end">
             <div className="m-4 w-1/4">
