@@ -1,6 +1,6 @@
 # Walk Assist Frontend
 
-This repository contains the **WIP** code for the frontend of a project
+This repository contains the code for the frontend of a project
 aimed at helping blind individuals navigate specific locations on foot, developed as a university class project.
 The frontend is developed with React utilizing Next.js for dynamic rendering and Tailwind for styling.
 
@@ -51,9 +51,15 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Usage
 
-The user needs to log in to access the system, which has the following functions:
+The user needs to log in to access the system by inputting its registry,
+password, and server port and address.
+The system has the following functions:
 
-- User CRUD (Admin only)
+- User CRUD (Admin only).
+- Point CRUD (Admin only).
+- Segment CRUD (Admin only).
+- Route request and display.
+- Personal profile modifications.
 
 ## License
 
